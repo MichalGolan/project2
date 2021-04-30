@@ -30,7 +30,7 @@ typedef struct _chessPosList {
 
 /* B */
 
-/*repository changed*/
+/*michal golan*/
 
 
 
@@ -48,7 +48,6 @@ void main()
 	testBoard = validKnightMoves();
 
 	testDisplay();
-
 
 
 	//printChessPosArray(*(*(testBoard))+7); /*how to go to a square*/
