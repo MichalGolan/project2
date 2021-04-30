@@ -30,7 +30,7 @@ typedef struct _chessPosList {
 
 /* B */
 
-/*repository changed*/
+/*aronov michal*/
 
 
 
