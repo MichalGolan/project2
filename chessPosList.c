@@ -1,5 +1,31 @@
 #include "ChessPosList.h"
 
+void display(chessPosList* lst)
+{
+	chessPosCell* ptr1, * ptr2;
+	ptr1 = ptr2 = lst->head;
+
+	while (ptr1 != NULL && ptr2 != NULL)
+	{
+		ptr2 = ptr1;
+
+		while (ptr2->next != NULL)
+		{
+			if (isEqual(ptr1->position, ptr2->next->position))
+			{
+				removeCell(ptr2, lst);
+			}
+			else
+			{
+				ptr2 = ptr2->next;
+			}
+		}
+		ptr1 = ptr1->next;
+	}
+	printBoardFromList(lst);
+}
+
+
 void removeCell(chessPosCell* deleteAfter, chessPosList* lst)
 {
 	if (lst->tail == deleteAfter->next)

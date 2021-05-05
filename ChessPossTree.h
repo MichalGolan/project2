@@ -2,8 +2,9 @@
 	#define _CHESSPOSTREE_H
 
 #include "chessPosArray.h"
-#include "chessPosList.h"
-#include "ProjectMainFunctions.h"
+//#include "chessPosList.h"
+//#include "ProjectMainFunctions.h"
+
 
 typedef struct _treeNodeListCell treeNodeListCell;
 
@@ -30,6 +31,10 @@ typedef struct _stringArray
 	int phySize;
 	char** stringArray;
 } stringArray;
+
+pathTree findAllPossibleKnightPaths(chessPos* startingPosition);
+/*C - the function build tree of possible knight paths given for a specific starting position*/
+
 
 treeNode* createNewTreeNode(chessPos pos, treeNodeListCell* next_possible_position);
 treeNode* findPathsRec(chessPos curr, chessPosArray*** movesMat, stringArray** stringTable, char* pathId, char newIndex);

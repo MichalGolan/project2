@@ -1,5 +1,25 @@
 #include "ChessPosArray.h"
 
+chessPosArray*** validKnightMoves()
+{
+	int i, j, k;
+	chessPosArray** board = (chessPosArray**)malloc(SIZE * sizeof(chessPosArray*));
+	for (k = 0; k < SIZE; k++)
+	{
+		board[k] = (chessPosArray*)malloc(SIZE * sizeof(chessPosArray));
+	}
+
+	for (i = 0; i < SIZE; i++)
+	{
+		for (j = 0; j < SIZE; j++)
+		{
+			fillchessPosArray(&board[i][j], i, j);
+
+		}
+	}
+	return &board;
+}
+
 void printChessPos(chessPos pos)
 {
 	printf("array: LET %c, DIG %c\n", pos[LET], pos[DIG]);

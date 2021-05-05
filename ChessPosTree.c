@@ -1,5 +1,19 @@
 #include "ChessPossTree.h"
 
+pathTree findAllPossibleKnightPaths(chessPos* startingPosition)
+{
+	chessPosArray*** movesMat;
+	movesMat = validKnightMoves();
+
+	stringArray stringTable[SIZE][SIZE];
+	initializeStringTable(stringTable);
+
+	pathTree treePath;
+	treePath.root = findPathsRec(*startingPosition, movesMat, stringTable, '1', '1');
+
+	return treePath;
+}
+
 treeNode* findPathsRec(chessPos curr, chessPosArray*** movesMat, stringArray** stringTable, char* pathId, char newIndex)
 {
 	int row = curr[LET];

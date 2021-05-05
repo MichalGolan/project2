@@ -2,7 +2,7 @@
 #define ChessPosList_H_
 
 #include "global.h"
-
+//#include "projectMainFunctions.h"
 
 typedef struct _chessPosCell {
 	chessPos position;
@@ -14,6 +14,9 @@ typedef struct _chessPosList {
 	chessPosCell* tail;
 } chessPosList;
 
+void display(chessPosList* lst);
+/*B - the function receives a list of moves and displays them on the screen in a chess board
+the function also removes multiple occurences of a move and leaves only the first occurence*/
 
 void removeCell(chessPosCell* deleteAfter, chessPosList* lst);
 /*the function removes chessPosCell after the one that is given*/

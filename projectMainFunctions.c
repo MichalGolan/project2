@@ -1,4 +1,4 @@
-#include "ProjectMainFunctions.h"
+/*#include "ProjectMainFunctions.h"
 
 chessPosArray*** validKnightMoves()
 {
@@ -56,6 +56,5 @@ pathTree findAllPossibleKnightPaths(chessPos* startingPosition)
 	pathTree treePath;
 	treePath.root = findPathsRec(*startingPosition, movesMat, stringTable, '1', '1');
 
-
 	return treePath;
-}
+}*/

@@ -3,7 +3,7 @@
 for all other modules to use*/
 
 #ifndef GLOBAL_H
-#define GLOBAL_H
+	#define GLOBAL_H
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
