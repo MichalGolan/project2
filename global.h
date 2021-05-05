@@ -8,6 +8,7 @@ for all other modules to use*/
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define LET 0
 #define DIG 1
@@ -21,5 +22,8 @@ void checkAlloc(void* ptr); /*the functions checks allocation memory failure*/
 
 void fillChessPos(chessPos pos, int let, int dig);
 /*the function puts data of chess position in the chessPos struct*/
+
+void copyChessPos(chessPos src, chessPos dest);
+/*the function copy one chessPos to another*/
 
 #endif

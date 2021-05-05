@@ -21,7 +21,7 @@ void removeCell(chessPosCell* deleteAfter, chessPosList* lst);
 chessPosCell* createNewCell(chessPos data, chessPosCell* next);
 /*function creates a new chessPosCell given data*/
 
-void insertDatatoEndList(chessPosList* lst, int letter, int digit);
+void insertDatatoEndList(chessPosList* lst, int letter, int digit); /*check*/
 /*this function receives a letter, a digit and a list and inserts a new chessPosCell
 to the end of the list accordingly*/
 
@@ -46,7 +46,7 @@ void fillByList(int board[][SIZE], chessPosList* lst);
 /*this function receives a two dimensional array the size of a chess board,
 and fills it according to the list*/
 
-void testDisplay();
+void testDisplay(); /* check */
 /*this is a debugging function to check that display is working correctly*/
 
 #endif

@@ -44,3 +44,18 @@ void display(chessPosList* lst)
 	}
 	printBoardFromList(lst);
 }
+
+pathTree findAllPossibleKnightPaths(chessPos* startingPosition)
+{
+	chessPosArray*** movesMat;
+	movesMat = validKnightMoves();
+
+	stringArray stringTable[SIZE][SIZE];
+	initializeStringTable(stringTable);
+
+	pathTree treePath;
+	treePath.root = findPathsRec(*startingPosition, movesMat, stringTable, '1', '1');
+
+
+	return treePath;
+}

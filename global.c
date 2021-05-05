@@ -6,6 +6,12 @@ void fillChessPos(chessPos pos, int let, int dig)
 	*(pos + DIG) = dig + '1';
 }
 
+void copyChessPos(chessPos src, chessPos dest)
+{
+	*(dest + LET) = *(src + LET);
+	*(dest + DIG) = *(src + DIG);
+}
+
 void checkAlloc(void* ptr)
 {
 	if (ptr == NULL)

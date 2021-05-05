@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="chessPosArray.c" />
     <ClCompile Include="chessPosList.c" />
+    <ClCompile Include="ChessPosTree.c" />
     <ClCompile Include="global.c" />
     <ClCompile Include="mainChessTest.c" />
     <ClCompile Include="projectMainFunctions.c" />
@@ -148,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="chessPosArray.h" />
     <ClInclude Include="chessPosList.h" />
+    <ClInclude Include="ChessPossTree.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="projectMainFunctions.h" />
   </ItemGroup>
