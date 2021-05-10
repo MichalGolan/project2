@@ -12,7 +12,7 @@ for all other modules to use*/
 
 #define LET 0
 #define DIG 1
-#define SIZE 8 /*row and col size*/
+#define SIZE 4 /*row and col size*/
 #define TRUE 1
 #define FALSE 0
 

@@ -36,8 +36,10 @@ pathTree findAllPossibleKnightPaths(chessPos* startingPosition);
 /*C - the function build tree of possible knight paths given for a specific starting position*/
 
 
+void printSquare(stringArray square);
+
 treeNode* createNewTreeNode(chessPos pos, treeNodeListCell* next_possible_position);
-treeNode* findPathsRec(chessPos curr, chessPosArray*** movesMat, stringArray** stringTable, char* pathId, char newIndex);
+treeNode* findPathsRec(chessPos curr, chessPosArray** movesMat, stringArray stringTable[][SIZE], char* pathId, char newIndex);
 void insertDatatoStartListPossiblePos(treeNode* headList, chessPos newPos);
 int isVisited(char* pathIndex, stringArray square);
 void initializeStringTable(stringArray stringTable[][SIZE]);

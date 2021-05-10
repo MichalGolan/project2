@@ -2,22 +2,32 @@
 
 pathTree findAllPossibleKnightPaths(chessPos* startingPosition)
 {
-	chessPosArray*** movesMat;
-	movesMat = validKnightMoves();
+	/*chessPosArray*** movesMat;
+	movesMat = validKnightMoves();*/ /* y dis not work*/
 
 	stringArray stringTable[SIZE][SIZE];
 	initializeStringTable(stringTable);
 
 	pathTree treePath;
-	treePath.root = findPathsRec(*startingPosition, movesMat, stringTable, '1', '1');
+	treePath.root = findPathsRec(*startingPosition, *validKnightMoves(), stringTable, "1", '0');
+
+	printSquare(stringTable[1][1]); /**/
 
 	return treePath;
 }
-
-treeNode* findPathsRec(chessPos curr, chessPosArray*** movesMat, stringArray** stringTable, char* pathId, char newIndex)
+void printSquare(stringArray square)
 {
-	int row = curr[LET];
-	int col = curr[DIG];
+	int size = square.logSize;
+	int i;
+	for (i = 0; i < size; i++)
+	{
+		printf("%d: %s\n",i, *(square.stringArray + i));
+	}
+}
+treeNode* findPathsRec(chessPos curr, chessPosArray** movesMat, stringArray stringTable[][SIZE], char* pathId, char newIndex)
+{
+	int row = curr[LET] - 'A';
+	int col = curr[DIG] - '1';
 	int i;
 	treeNode* currNeighbor;
 	if (isVisited(pathId, stringTable[row][col]))
@@ -30,16 +40,18 @@ treeNode* findPathsRec(chessPos curr, chessPosArray*** movesMat, stringArray** s
 		insertToStringTable(newId, &(stringTable[row][col]));
 
 		treeNode* newNode = createNewTreeNode(curr, NULL);
-		chessPosArray* neighbors = *(*(movesMat)+row)+col;
+		chessPosArray neighbors = movesMat[row][col];
 
-		for (i = 0; i < (neighbors->size); i++)
+		for (i = 0; i < (neighbors.size); i++)
 		{
-			currNeighbor = findPathsRec(*(neighbors->positions + i), movesMat, stringTable, pathId, i + '0');
+			chessPos* tmp = neighbors.positions;
+			currNeighbor = findPathsRec(*(tmp + i), movesMat, stringTable, newId, i + '1');
 				if (currNeighbor != NULL)
 				{
-					insertDatatoStartListPossiblePos(newNode, *(neighbors->positions + i));
+					insertDatatoStartListPossiblePos(newNode, *(neighbors.positions + i));
 				}
 		}
+		/*free newId*/
 		return newNode;
 	}
 }
@@ -50,15 +62,17 @@ void insertToStringTable(char* Id, stringArray* strArr)
 	if (strArr->phySize == 0)
 	{
 		strArr->phySize = 1;
-		char** newStrArr = (char**)malloc(sizeof(char*));
+		strArr->stringArray = (char**)malloc(sizeof(char*));
 	}
 	else if (strArr->logSize >= strArr->phySize)
 	{
-		char** newStrArr = (char**)realloc(strArr, 2 * strArr->phySize * sizeof(char*));
+		strArr->stringArray = (char**)realloc(strArr->stringArray, 2 * strArr->phySize * sizeof(char*));
 		strArr->phySize = 2 * strArr->phySize;
 	}
-	*(strArr->stringArray + strArr->logSize) = Id;
-	
+
+	int size = strlen(Id);
+	*(strArr->stringArray + strArr->logSize) = (char*)malloc((size + 1) * sizeof(char));
+	strcpy(*(strArr->stringArray + strArr->logSize), Id);
 	strArr->logSize++;
 }
 
@@ -125,21 +139,29 @@ int strcomp(char* pathIndex, char* str)
 		{
 			res = FALSE;
 		}
+		i++;
 	}
 	return res;
 }
 
+/*this function create injective string for specific path*/
 char* createID(char* pathIndex, char newIndex)
 {
-	int i;
-	int size = strlen(pathIndex);
-	char* newPathIndex = (char*)malloc((size + 2) * sizeof(size));
-	for (i = 0; i < size; i++)
+	if (newIndex != '0')
 	{
-		newPathIndex[i] = pathIndex[i];
+		int i;
+		int size = strlen(pathIndex);
+		char* newPathIndex = (char*)malloc((size + 2) * sizeof(size));
+		for (i = 0; i < size; i++)
+		{
+			newPathIndex[i] = pathIndex[i];
+		}
+		newPathIndex[i] = newIndex;
+		newPathIndex[i + 1] = '\0';
+		return newPathIndex;
 	}
-	newPathIndex[i] = newIndex;
-	newPathIndex[i + 1] = '\0';
-
-	return newPathIndex;
+	else
+	{
+		return pathIndex;
+	}
 }

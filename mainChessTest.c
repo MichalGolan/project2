@@ -12,8 +12,8 @@ void main()
 
 	testDisplay();
 	chessPos check;
-	check[0] = 0;
-	check[1] = 0;
+	check[0] = 'A';
+	check[1] = '1';
 
 
 	pathTree path = findAllPossibleKnightPaths(check);
