@@ -2,6 +2,8 @@
 /*this module includes the globally needed definitions of the entire project
 for all other modules to use*/
 
+/*this is a test*/
+
 #ifndef GLOBAL_H
 	#define GLOBAL_H
 
