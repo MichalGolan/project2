@@ -2,19 +2,62 @@
 
 pathTree findAllPossibleKnightPaths(chessPos* startingPosition)
 {
-	/*chessPosArray*** movesMat;
-	movesMat = validKnightMoves();*/ /* y dis not work*/
-
 	stringArray stringTable[SIZE][SIZE];
 	initializeStringTable(stringTable);
 
 	pathTree treePath;
 	treePath.root = findPathsRec(*startingPosition, *validKnightMoves(), stringTable, "1", '0');
 
-	printSquare(stringTable[1][1]); /**/
+	printSquare(stringTable[2][2]); /**/
 
 	return treePath;
 }
+
+chessPosList* findKnightpathCoveringAllBoard(pathTree* path_tree)
+{
+	int counter = 0;
+	int found = FALSE;
+	chessPosList lst;
+	makeEmptyList(&lst);
+
+	findCoveringAllRec(&lst, path_tree->root, counter, &found );
+
+	return &lst;
+}
+
+void findCoveringAllRec(chessPosList* lst, treeNode* root, int counter, int* found)
+{
+	if (root->next_possible_position == NULL)
+	{
+		/*if (counter == SIZE * SIZE)*/
+		if (counter == 5)
+		{
+			*found = TRUE;
+			insertDataToList(lst, root->position);
+		}
+		return;
+	}
+	else
+	{
+		treeNodeListCell* curr = root->next_possible_position;
+		chessPosCell* newCell;
+		while (curr != NULL && *found == FALSE)
+		{
+			findCoveringAllRec(lst, curr->node, counter+1, found);
+			if (*found == TRUE)
+			{
+				insertDataToList(lst, root->position);
+			}
+			else
+			{
+				curr = curr->next;
+			}
+		}
+		return;
+	}
+}
+
+
 void printSquare(stringArray square)
 {
 	int size = square.logSize;
@@ -48,7 +91,7 @@ treeNode* findPathsRec(chessPos curr, chessPosArray** movesMat, stringArray stri
 			currNeighbor = findPathsRec(*(tmp + i), movesMat, stringTable, newId, i + '1');
 				if (currNeighbor != NULL)
 				{
-					insertDatatoStartListPossiblePos(newNode, *(neighbors.positions + i));
+					insertDatatoStartListPossiblePos(newNode, currNeighbor);
 				}
 		}
 		/*free newId*/
@@ -75,11 +118,23 @@ void insertToStringTable(char* Id, stringArray* strArr)
 	strcpy(*(strArr->stringArray + strArr->logSize), Id);
 	strArr->logSize++;
 }
-
-void insertDatatoStartListPossiblePos(treeNode* headList, chessPos newPos)
+/*typedef struct _treeNode
 {
-	treeNode* newNode = createNewTreeNode(newPos, headList->next_possible_position);
-	headList->next_possible_position = newNode;
+	chessPos position;
+	treeNodeListCell* next_possible_position;
+} treeNode;
+
+struct _treeNodeListCell
+{
+	treeNode* node;
+	struct _treeNodeListNodeCell* next;
+};*/
+void insertDatatoStartListPossiblePos(treeNode* headList, treeNode* currNeighbor)
+{
+	treeNodeListCell* newListCell = (treeNodeListCell*)malloc(sizeof(treeNodeListCell));
+	newListCell->node = currNeighbor;
+	newListCell->next = headList->next_possible_position;
+	headList->next_possible_position = newListCell;
 }
 
 void initializeStringTable(stringArray stringTable[][SIZE])
@@ -104,7 +159,6 @@ treeNode* createNewTreeNode(chessPos pos, treeNodeListCell* next_possible_positi
 	newNode->next_possible_position = next_possible_position;
 	return newNode;
 }
-
 
 int isVisited(char* pathIndex, stringArray square)
 {
@@ -151,7 +205,7 @@ char* createID(char* pathIndex, char newIndex)
 	{
 		int i;
 		int size = strlen(pathIndex);
-		char* newPathIndex = (char*)malloc((size + 2) * sizeof(size));
+		char* newPathIndex = (char*)malloc((size + 2) * sizeof(char));
 		for (i = 0; i < size; i++)
 		{
 			newPathIndex[i] = pathIndex[i];

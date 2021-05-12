@@ -43,9 +43,7 @@ chessPosCell* createNewCell(chessPos data, chessPosCell* next)
 	*(newCell->position) = data[LET];
 	*(newCell->position + 1) = data[DIG];
 	newCell->next = next;
-
 	return newCell;
-
 }
 
 void insertDatatoEndList(chessPosList* lst, int letter, int digit)
@@ -122,8 +120,8 @@ void printBoardFromList(chessPosList* lst)
 	int board[SIZE][SIZE] = { 0 };
 	fillByList(board, lst);
 
-	printf("\n     |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  | \n");
-	printf(" ----------------------------------------------------- \n");
+	printf("\n     |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  | \n"); /**/
+	printf(" ----------------------------------------------------- \n"); /**/
 
 	for (i = 0; i < SIZE; i++)
 	{
@@ -140,7 +138,7 @@ void printBoardFromList(chessPosList* lst)
 			}
 
 		}
-		printf("\n -----------------------------------------------------\n");
+		printf("\n -----------------------------------------------------\n"); /**/
 	}
 	printf("\n");
 }
@@ -160,4 +158,23 @@ void testDisplay()
 {
 	chessPosList lst = createNewList();
 	display(&lst);
+}
+
+void insertDataToList(chessPosList* lst, chessPos pos)
+{
+	chessPosCell* newCell = createNewCell(pos, NULL);
+	insertCellToStartList(lst, newCell);
+}
+
+void insertCellToStartList(chessPosList* lst, chessPosCell* newCell)
+{
+	if (lst->head == NULL)
+	{
+		lst->head = lst->tail = newCell;
+	}
+	else
+	{
+		newCell->next = lst->head;
+		lst->head = newCell;
+	}
 }

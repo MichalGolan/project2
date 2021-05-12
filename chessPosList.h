@@ -52,4 +52,12 @@ and fills it according to the list*/
 void testDisplay(); /* check */
 /*this is a debugging function to check that display is working correctly*/
 
+void insertDataToList(chessPosList* lst, chessPos pos);
+/* this function create and insert new node to list*/
+
+void insertCellToStartList(chessPosList* lst, chessPosCell* newCell);
+/*this function add new node to start list */
+
+
+
 #endif

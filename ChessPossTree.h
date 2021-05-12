@@ -2,7 +2,7 @@
 	#define _CHESSPOSTREE_H
 
 #include "chessPosArray.h"
-//#include "chessPosList.h"
+#include "chessPosList.h"
 //#include "ProjectMainFunctions.h"
 
 
@@ -40,14 +40,15 @@ void printSquare(stringArray square);
 
 treeNode* createNewTreeNode(chessPos pos, treeNodeListCell* next_possible_position);
 treeNode* findPathsRec(chessPos curr, chessPosArray** movesMat, stringArray stringTable[][SIZE], char* pathId, char newIndex);
-void insertDatatoStartListPossiblePos(treeNode* headList, chessPos newPos);
+void insertDatatoStartListPossiblePos(treeNode* headList, treeNode* currNeighbor);
 int isVisited(char* pathIndex, stringArray square);
 void initializeStringTable(stringArray stringTable[][SIZE]);
 int strcomp(char* pathIndex, char* str);
 char* createID(char* pathIndex, char newIndex);
 void insertToStringTable(char* Id, stringArray* strArr);
 
-
+chessPosList* findKnightpathCoveringAllBoard(pathTree* path_tree);
+void findCoveringAllRec(chessPosList* lst, treeNode* root, int counter, int* found);
 
 #endif 
 
