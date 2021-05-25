@@ -17,7 +17,7 @@ typedef struct _treeNode
 struct _treeNodeListCell
 {
 	treeNode* node;
-	struct _treeNodeListNodeCell* next;
+	struct _treeNodeListCell* next;
 };
 
 typedef struct _pathTree
@@ -25,30 +25,33 @@ typedef struct _pathTree
 	treeNode* root;
 } pathTree;
 
-typedef struct _stringArray
-{
-	int logSize;
-	int phySize;
-	char** stringArray;
-} stringArray;
-
-pathTree findAllPossibleKnightPaths(chessPos* startingPosition);
 /*C - the function build tree of possible knight paths given for a specific starting position*/
+pathTree findAllPossibleKnightPaths(chessPos* startingPosition);
 
+/*build paths tree recursivly*/
+treeNode* findPathsRec(chessPos curr, chessPosArray** movesMat, int visited[][SIZE]);
 
-void printSquare(stringArray square);
-
+/*create new treeNode */
 treeNode* createNewTreeNode(chessPos pos, treeNodeListCell* next_possible_position);
-treeNode* findPathsRec(chessPos curr, chessPosArray** movesMat, stringArray stringTable[][SIZE], char* pathId, char newIndex);
-void insertDatatoStartListPossiblePos(treeNode* headList, treeNode* currNeighbor);
-int isVisited(char* pathIndex, stringArray square);
-void initializeStringTable(stringArray stringTable[][SIZE]);
-int strcomp(char* pathIndex, char* str);
-char* createID(char* pathIndex, char newIndex);
-void insertToStringTable(char* Id, stringArray* strArr);
 
+/*insert data to start list*/
+void insertDatatoStartListPossiblePos(treeNode* headList, treeNode* currNeighbor);
+
+/* D - find path covering all board, return path if found*/
 chessPosList* findKnightpathCoveringAllBoard(pathTree* path_tree);
+
+/*find path covering all board recursivly*/
 void findCoveringAllRec(chessPosList* lst, treeNode* root, int counter, int* found);
+
+/*free path tree*/
+void freePathTree(pathTree root);
+
+/*free path tree recursivly*/
+void freePathTreeRec(treeNode* root);
+
+/*free treeNode List */
+void freetreeNodeList(treeNodeListCell* head);
+
 
 #endif 
 

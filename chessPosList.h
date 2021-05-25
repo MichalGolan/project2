@@ -58,6 +58,10 @@ void insertDataToList(chessPosList* lst, chessPos pos);
 void insertCellToStartList(chessPosList* lst, chessPosCell* newCell);
 /*this function add new node to start list */
 
+short int getListSize(chessPosList* pos_list);
+/*get size of list*/
 
+void freeList(chessPosList* lst);
+/*free list*/
 
 #endif

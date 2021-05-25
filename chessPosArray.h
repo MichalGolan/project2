@@ -3,6 +3,7 @@
 #define CHESSPOSARRAY_H
 
 #include "global.h"
+#define MAXPOS 8 /*maximum possible moves*/
 
 typedef struct _chessPosArray
 {
@@ -24,5 +25,8 @@ void printChessPos(chessPos pos);
 
 void printChessPosArray(chessPosArray* square);
 /*the function prints an array of chess positions*/
+
+void freeChessPosArray(chessPosArray*** pBard);
+/*free chessPos array*/
 
 #endif

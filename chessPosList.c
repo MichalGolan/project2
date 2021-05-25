@@ -79,19 +79,18 @@ chessPosList createNewList()
 	chessPosList lst;
 	makeEmptyList(&lst);
 
-	chessPos data1 = { 'A','6' };
-	chessPos data2 = { 'H','2' };
-	chessPos data3 = { 'D','3' };
-	chessPos data4 = { 'H','5' };
-	chessPos data5 = { 'A','2' };
-	chessPos data6 = { 'D','3' };
+	chessPos data1 = { 'C','5' };
+	chessPos data2 = { 'A','4' };
+	chessPos data3 = { 'B','3' };
+	chessPos data4 = { 'D','1' };
+	chessPos data5 = { 'E','3' };
+
 
 	insertCellToEndList(&lst, createNewCell(data1, NULL));
 	insertCellToEndList(&lst, createNewCell(data2, NULL));
 	insertCellToEndList(&lst, createNewCell(data3, NULL));
 	insertCellToEndList(&lst, createNewCell(data4, NULL));
 	insertCellToEndList(&lst, createNewCell(data5, NULL));
-	insertCellToEndList(&lst, createNewCell(data6, NULL));
 
 	return lst;
 	printf("end");
@@ -116,12 +115,21 @@ void fillByList(int board[][SIZE], chessPosList* lst)
 
 void printBoardFromList(chessPosList* lst)
 {
-	int i, j;
+	int i, j, k;
 	int board[SIZE][SIZE] = { 0 };
 	fillByList(board, lst);
-
-	printf("\n     |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  | \n"); /**/
-	printf(" ----------------------------------------------------- \n"); /**/
+	
+	printf("\n     ");
+	for (k = 0; k < SIZE; k++)
+	{
+		printf("|  %d  ", k+1);
+	}
+	printf("| \n -----");
+	for (k = 0; k < SIZE; k++)
+	{
+		printf("------");
+	}
+	printf("\n");
 
 	for (i = 0; i < SIZE; i++)
 	{
@@ -138,7 +146,12 @@ void printBoardFromList(chessPosList* lst)
 			}
 
 		}
-		printf("\n -----------------------------------------------------\n"); /**/
+		printf(" \n -----");
+		for (k = 0; k < SIZE; k++)
+		{
+			printf("------");
+		}
+		printf("\n");
 	}
 	printf("\n");
 }
@@ -177,4 +190,29 @@ void insertCellToStartList(chessPosList* lst, chessPosCell* newCell)
 		newCell->next = lst->head;
 		lst->head = newCell;
 	}
+}
+
+void freeList(chessPosList* lst)
+{
+	chessPosCell* curr = lst->head, * next;
+	while (curr != NULL)
+	{
+		next = curr->next;
+		free(curr);
+		curr = next;
+	}
+}
+
+
+short int getListSize(chessPosList* pos_list)
+{
+	chessPosCell* curr = pos_list->head;
+	short int len = 0;
+
+	while (curr != NULL)
+	{
+		curr = curr->next;
+		len++;
+	}
+	return len;
 }

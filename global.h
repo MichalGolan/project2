@@ -14,13 +14,14 @@ for all other modules to use*/
 
 #define LET 0
 #define DIG 1
-#define SIZE 4 /*row and col size*/
+#define SIZE 5 /*row and col size*/
 #define TRUE 1
 #define FALSE 0
 
 typedef char chessPos[2];
 
-void checkAlloc(void* ptr); /*the functions checks allocation memory failure*/
+void checkAlloc(void* ptr); 
+/*the functions checks allocation memory failure*/
 
 void fillChessPos(chessPos pos, int let, int dig);
 /*the function puts data of chess position in the chessPos struct*/

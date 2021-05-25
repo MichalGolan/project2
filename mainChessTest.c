@@ -3,9 +3,9 @@
 
 #include "global.h"
 #include "ChessPossTree.h"
-#include "chessPosList.h"
+#include "compress.h"
 
-void printlist(chessPosList* lst);
+void printlist(chessPosCell* head);
 
 void main()
 {
@@ -17,23 +17,25 @@ void main()
 	check[0] = 'C';
 	check[1] = '3';
 
-
 	pathTree path = findAllPossibleKnightPaths(check);
 	
 	chessPosList* lst = findKnightpathCoveringAllBoard(&path);
-	printlist(lst);
+	printlist(lst->head);
 
-	printf("\n\npos 1:");
+	chessPosList pos_list = createNewList();
+	saveListToBinFile("test.bin", &pos_list);
+
+
 	printChessPos(path.root->position);
-
-	//printChessPosArray(*(*(testBoard))+7); /*how to go to a square*/
-
+	freePathTree(path);
+	freeChessPosArray(testBoard);
+	freeList(lst);
 }
 
-void printlist(chessPosList* lst)
+void printlist(chessPosCell* head)
 {
 	int i = 1;
-	chessPosCell* curr = lst->head;
+	chessPosCell* curr = head;
 	if (curr == NULL)
 	{
 		printf("empty List, no full board path");

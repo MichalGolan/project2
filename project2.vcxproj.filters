@@ -33,6 +33,9 @@
     <ClCompile Include="ChessPosTree.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="compress.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="chessPosArray.h">
@@ -48,6 +51,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ChessPossTree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="compress.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

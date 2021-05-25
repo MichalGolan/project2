@@ -3,10 +3,15 @@
 chessPosArray*** validKnightMoves()
 {
 	int i, j, k;
+	chessPosArray*** pBoard = (chessPosArray***)malloc(sizeof(chessPosArray**));
+	checkAlloc(pBoard);
 	chessPosArray** board = (chessPosArray**)malloc(SIZE * sizeof(chessPosArray*));
+	checkAlloc(board);
+
 	for (k = 0; k < SIZE; k++)
 	{
 		board[k] = (chessPosArray*)malloc(SIZE * sizeof(chessPosArray));
+		checkAlloc(board[k]);
 	}
 
 	for (i = 0; i < SIZE; i++)
@@ -14,10 +19,26 @@ chessPosArray*** validKnightMoves()
 		for (j = 0; j < SIZE; j++)
 		{
 			fillchessPosArray(&board[i][j], i, j);
-
 		}
 	}
-	return &board;
+	*pBoard = board;
+	return pBoard;
+}
+
+void freeChessPosArray(chessPosArray*** pBoard)
+{
+	int i, j;
+	chessPosArray** board = *pBoard;
+	for (i = 0; i < SIZE; i++)
+	{
+		for (j = 0; j < SIZE; j++)
+		{
+			free((board[i][j]).positions);
+		}
+		free(board[i]);
+	}
+	free(board);
+	free(pBoard);
 }
 
 void printChessPos(chessPos pos)
@@ -38,7 +59,7 @@ void printChessPosArray(chessPosArray* square)
 void fillchessPosArray(chessPosArray* square, int i, int j)
 {
 	int size = 0;
-	chessPos* array = (chessPos*)malloc(sizeof(chessPos) * SIZE);
+	chessPos* array = (chessPos*)malloc(sizeof(chessPos) * MAXPOS);
 	checkAlloc(array);
 
 	if (i + 2 < SIZE && j + 1 < SIZE) /* check if 2 to the right and 1 down is in table*/
@@ -82,7 +103,7 @@ void fillchessPosArray(chessPosArray* square, int i, int j)
 		size++;
 	}
 
-	if (size < SIZE)
+	if (size < MAXPOS)
 	{
 		array = (chessPos*)realloc(array, sizeof(chessPos) * size);
 	}
