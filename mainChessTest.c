@@ -1,14 +1,16 @@
 #define _CRT_SECURE_NO_WARNINGS
 //#include "ProjectMainFunctions.h"
 
-#include "global.h"
+/*#include "global.h"
 #include "ChessPossTree.h"
-#include "compress.h"
-
+#include "compress.h"*/
+#include "menu.h"
 
 void main()
 {
-/*	chessPosArray*** testBoard;
+
+	menu();
+	/*chessPosArray*** testBoard;
 	testBoard = validKnightMoves();
 
 	testDisplay();
@@ -20,14 +22,12 @@ void main()
 	
 	chessPosList* lst;
 	lst = findKnightpathCoveringAllBoard(&path);
-	printlist(lst);
-	*/
-	chessPosList pos_list = createNewList();
-	saveListToBinFile("test.bin", &pos_list);
-	checkAndDisplayPathFromFile("test.bin");
-	/*
 
-	printChessPos(path.root->position);
+	saveListToBinFile("test.bin", lst);
+	int res = checkAndDisplayPathFromFile("test.bin");
+	printf("%d\n", res);
+
+
 	freePathTree(path);
 	freeChessPosArray(testBoard);
 	freeList(lst);*/

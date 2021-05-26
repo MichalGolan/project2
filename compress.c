@@ -2,13 +2,13 @@
 
 void saveListToBinFile(char* file_name, chessPosList* pos_list)
 {
-	unsigned short int listSize = getListSize(pos_list);
+	unsigned short listSize = getListSize(pos_list);
 	int byteSize = getbyteSize(listSize * 6);
 
 	FILE* file = fopen(file_name, "wb");
 	checkFile(file);
 
-	fwrite(&listSize, sizeof(unsigned short int), 1, file);
+	fwrite(&listSize, sizeof(unsigned short), 1, file);
 
 	BYTE* res = (BYTE*)calloc(byteSize, sizeof(BYTE));
 	checkAlloc(res);
@@ -117,46 +117,53 @@ void checkFile(FILE* file)
 
 int checkAndDisplayPathFromFile(char* file_name)
 {
+	unsigned short fileListSize;
+	int ret;
 	FILE* file = fopen(file_name, "rb");
 	if (file == NULL)
 	{
 		return -1;
 	}
-	
-	unsigned short int listSize;
-	fread(&listSize, sizeof(unsigned short int), 1, file);
-	printf("%d\n", listSize);
+	fread(&fileListSize, sizeof(unsigned short), 1, file);
 
 	chessPosList* lst = (chessPosList*)malloc(sizeof(chessPosList));
 	checkAlloc(lst);
 	makeEmptyList(lst);
-	makeListFromFile(file, listSize, lst);
-	printlist(lst);
 
-	/*
-	if(check not legit())
-	{
-	return 1;
-	}
-	else
-	{
-	display(lst);
-	if(sizelst == SIZE*SIZE)
-	return 2;
-	else
-	{
-	return 3;
-	}
+	makeListFromFile(file, fileListSize, lst);
 
-	}
+	ret = checkList(lst);
 
-	
-	*/
-
-
+	fclose(file);
+	freeList(lst);
+	return ret;
 }
 
-void makeListFromFile(FILE* file, unsigned short int listSize, chessPosList* lst)
+int checkList(chessPosList* lst)
+{
+	unsigned short lstLen;
+	int ret;
+	if (checkLegit(lst))
+	{
+		display(lst);
+		lstLen = getListSize(lst);
+		if (lstLen == SIZE * SIZE)
+		{
+			ret = 2;
+		}
+		else
+		{
+			ret = 3;
+		}
+	}
+	else /*not legitimate knight path*/
+	{
+		ret = 1;
+	}
+	return ret;
+}
+
+void makeListFromFile(FILE* file, unsigned short listSize, chessPosList* lst)
 {
 	int i,j , curr_let, curr_dig;
 	int byteSize = getbyteSize((int)listSize * 6);
@@ -166,11 +173,10 @@ void makeListFromFile(FILE* file, unsigned short int listSize, chessPosList* lst
 	fread(arr, sizeof(BYTE), byteSize, file);
 
 	makeListFromArr(lst, arr, listSize, byteSize);
-	printlist(lst);
-	
+	free(arr);
 }
 
-void makeListFromArr(chessPosList* lst, BYTE* arr, unsigned short int listSize, int byteSize)
+void makeListFromArr(chessPosList* lst, BYTE* arr, unsigned short listSize, int byteSize)
 {
 	int ind_byte = 0, ind_bit = 0, i, j;
 	BYTE mask_CP, bit_mask = 1 << 7;
@@ -226,5 +232,77 @@ int extractbit(BYTE CP, BYTE mask)
 		mask_res = mask_res << 1;
 		mask = mask << 1;
 	}
+	return res;
+}
+
+int checkLegit(chessPosList* lst)
+{
+	int res = 1;
+	if (lst != NULL) /*if empty list return legit*/
+	{
+		chessPosCell* curr = lst->head, * next = lst->head->next;
+		while (next != NULL && res)
+		{
+
+			if (notNeighbor(curr->position, next->position))
+			{
+				res = 0;
+			}
+			curr = next;
+			next = curr->next;
+		}
+	}
+	return res;
+}
+
+int notNeighbor(chessPos curr, chessPos next)
+{
+	int cRow, cCol, nRow, nCol, res = 1;
+	cRow = curr[LET] - 'A';
+	cCol = curr[DIG] - '1';
+	nRow = next[LET] - 'A';
+	nCol = next[DIG] - '1';
+
+	if (nRow == cRow - 2 && nCol == cCol + 1)
+	{
+		res--;
+		return res;
+	}
+	if (nRow == cRow - 1 && nCol == cCol + 2)
+	{
+		res--;
+		return res;
+	}
+	if (nRow == cRow + 1 && nCol == cCol + 2)
+	{
+		res--;
+		return res;
+	}
+	if (nRow == cRow + 2 && nCol == cCol + 1)
+	{
+		res--;
+		return res;
+	}
+	if (nRow == cRow + 2 && nCol == cCol - 1)
+	{
+		res--;
+		return res;
+	}
+	if (nRow == cRow + 1 && nCol == cCol - 2)
+	{
+		res--;
+		return res;
+	}
+	if (nRow == cRow - 1 && nCol == cCol - 2)
+	{
+		res--;
+		return res;
+	}
+	if (nRow == cRow - 2 && nCol == cCol - 1)
+	{
+		res--;
+		return res;
+	}
+
 	return res;
 }

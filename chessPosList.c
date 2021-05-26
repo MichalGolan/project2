@@ -81,7 +81,7 @@ chessPosList createNewList()
 
 	chessPos data1 = { 'C','5' };
 	chessPos data2 = { 'A','4' };
-	chessPos data3 = { 'B','3' };
+	chessPos data3 = { 'B','2' };
 	chessPos data4 = { 'D','1' };
 	chessPos data5 = { 'E','3' };
 
@@ -122,12 +122,12 @@ void printBoardFromList(chessPosList* lst)
 	printf("\n     ");
 	for (k = 0; k < SIZE; k++)
 	{
-		printf("|  %d  ", k+1);
+		printf("|  %2d  ", k+1);
 	}
 	printf("| \n -----");
 	for (k = 0; k < SIZE; k++)
 	{
-		printf("------");
+		printf("-------");
 	}
 	printf("\n");
 
@@ -138,18 +138,18 @@ void printBoardFromList(chessPosList* lst)
 		{
 			if (board[i][j] == 0)
 			{
-				printf("     |");
+				printf("      |");
 			}
 			else
 			{
-				printf("  %d  |", board[i][j]);
+				printf("  %2d  |", board[i][j]);
 			}
 
 		}
 		printf(" \n -----");
 		for (k = 0; k < SIZE; k++)
 		{
-			printf("------");
+			printf("-------");
 		}
 		printf("\n");
 	}
@@ -205,10 +205,10 @@ void freeList(chessPosList* lst)
 }
 
 
-unsigned short int getListSize(chessPosList* pos_list)
+unsigned short getListSize(chessPosList* pos_list)
 {
 	chessPosCell* curr = pos_list->head;
-	short int len = 0;
+	unsigned short len = 0;
 
 	while (curr != NULL)
 	{

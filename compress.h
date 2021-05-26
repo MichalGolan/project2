@@ -25,12 +25,20 @@ void checkFile(FILE* file);
 
 int checkAndDisplayPathFromFile(char* file_name);
 
-void makeListFromFile(FILE* file, unsigned short int listSize, chessPosList* lst);
+int checkList(chessPosList* lst);
 
-void makeListFromArr(chessPosList* lst, BYTE* arr, unsigned short int listSize, int byteSize);
+void makeListFromFile(FILE* file, unsigned short listSize, chessPosList* lst);
+
+void makeListFromArr(chessPosList* lst, BYTE* arr, unsigned short listSize, int byteSize);
 
 void insertBinDataToList(BYTE CP, chessPosList* lst);
 
 int extractbit(BYTE CP, BYTE mask);
+
+int checkLegit(chessPosList* lst);
+
+int notNeighbor(chessPos curr, chessPos next);
+
+
 
 #endif 
