@@ -14,12 +14,11 @@ chessPosList* findKnightpathCoveringAllBoard(pathTree* path_tree)
 {
 	int counter = 1;
 	int found = FALSE;
-	chessPosList lst;
-	makeEmptyList(&lst);
-
-	findCoveringAllRec(&lst, path_tree->root, counter, &found );
-
-	return &lst;
+	chessPosList* lst = (chessPosList*)malloc(sizeof(chessPosList));
+	checkAlloc(lst);
+	makeEmptyList(lst);
+	findCoveringAllRec(lst, path_tree->root, counter, &found );
+	return lst;
 }
 
 void findCoveringAllRec(chessPosList* lst, treeNode* root, int counter, int* found)
@@ -36,7 +35,6 @@ void findCoveringAllRec(chessPosList* lst, treeNode* root, int counter, int* fou
 	else
 	{
 		treeNodeListCell* curr = root->next_possible_position;
-		chessPosCell* newCell;
 		while (curr != NULL && *found == FALSE)
 		{
 			findCoveringAllRec(lst, curr->node, counter+1, found);

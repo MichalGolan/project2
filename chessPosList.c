@@ -201,10 +201,11 @@ void freeList(chessPosList* lst)
 		free(curr);
 		curr = next;
 	}
+	free(lst);
 }
 
 
-short int getListSize(chessPosList* pos_list)
+unsigned short int getListSize(chessPosList* pos_list)
 {
 	chessPosCell* curr = pos_list->head;
 	short int len = 0;
@@ -215,4 +216,26 @@ short int getListSize(chessPosList* pos_list)
 		len++;
 	}
 	return len;
+}
+
+
+void printlist(chessPosList* lst) /**/
+{
+	int i = 1;
+	chessPosCell* curr = lst->head;
+	if (curr == NULL)
+	{
+		printf("empty List, no full board path");
+	}
+	else
+	{
+		while (curr != NULL)
+		{
+			printf("move %d: ", i);
+			printChessPos(curr->position);
+			curr = curr->next;
+			i++;
+		}
+	}
+
 }

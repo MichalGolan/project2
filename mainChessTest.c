@@ -5,11 +5,10 @@
 #include "ChessPossTree.h"
 #include "compress.h"
 
-void printlist(chessPosCell* head);
 
 void main()
 {
-	chessPosArray*** testBoard;
+/*	chessPosArray*** testBoard;
 	testBoard = validKnightMoves();
 
 	testDisplay();
@@ -19,35 +18,19 @@ void main()
 
 	pathTree path = findAllPossibleKnightPaths(check);
 	
-	chessPosList* lst = findKnightpathCoveringAllBoard(&path);
-	printlist(lst->head);
-
+	chessPosList* lst;
+	lst = findKnightpathCoveringAllBoard(&path);
+	printlist(lst);
+	*/
 	chessPosList pos_list = createNewList();
 	saveListToBinFile("test.bin", &pos_list);
-
+	checkAndDisplayPathFromFile("test.bin");
+	/*
 
 	printChessPos(path.root->position);
 	freePathTree(path);
 	freeChessPosArray(testBoard);
-	freeList(lst);
+	freeList(lst);*/
 }
 
-void printlist(chessPosCell* head)
-{
-	int i = 1;
-	chessPosCell* curr = head;
-	if (curr == NULL)
-	{
-		printf("empty List, no full board path");
-	}
-	else
-	{
-		while (curr != NULL)
-		{
-			printf("move %d: ", i);
-			printChessPos(curr->position);
-			curr = curr->next;
-			i++;
-		}
-	}
-}
+

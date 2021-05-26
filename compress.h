@@ -8,10 +8,10 @@ typedef unsigned char BYTE;
 void saveListToBinFile(char* file_name, chessPosList* pos_list);
 /* E - this function get chessPos list, creates binary file with compressed information from the given list*/
 
-void fillArrFromList(chessPosList* pos_list, BYTE* res, int arrSize, short int listSize);
+void fillArrFromList(chessPosList* pos_list, BYTE* res);
 /*fill BYTE array with compressed information from pos_list*/
 
-void setBit(BYTE* res, BYTE bin_CP, BYTE mask, int ind_byte, BYTE mask_byte, int* ind_bit);
+void setBit(BYTE* res, BYTE bin_CP, BYTE mask, int ind_byte, BYTE bit_mask, int* ind_bit);
 /*turn specific bit 1/0*/
 
 BYTE makeBin(chessPos CP);
@@ -23,5 +23,14 @@ int getbyteSize(int bitSize);
 void checkFile(FILE* file);
 /*check file opening failure */
 
+int checkAndDisplayPathFromFile(char* file_name);
+
+void makeListFromFile(FILE* file, unsigned short int listSize, chessPosList* lst);
+
+void makeListFromArr(chessPosList* lst, BYTE* arr, unsigned short int listSize, int byteSize);
+
+void insertBinDataToList(BYTE CP, chessPosList* lst);
+
+int extractbit(BYTE CP, BYTE mask);
 
 #endif 
