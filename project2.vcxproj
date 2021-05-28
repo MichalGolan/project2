@@ -146,7 +146,6 @@
     <ClCompile Include="global.c" />
     <ClCompile Include="mainChessTest.c" />
     <ClCompile Include="menu.c" />
-    <ClCompile Include="projectMainFunctions.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="chessPosArray.h" />
@@ -155,7 +154,6 @@
     <ClInclude Include="compress.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="menu.h" />
-    <ClInclude Include="projectMainFunctions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

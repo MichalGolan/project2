@@ -26,30 +26,23 @@ void fillArrFromList(chessPosList* pos_list, BYTE* res)
 	chessPosCell* curr = pos_list->head;
 	chessPos CP;
 	int ind_byte = 0, ind_bit=0, i;
-	
-	BYTE bin_CP;
-	BYTE bit_mask = 1 << 7;
+	BYTE bin_CP, bit_mask = 1 << 7;
 
 	while (curr != NULL)
 	{
 		copyChessPos(curr->position, CP);
 		bin_CP = makeBin(CP);
-
 		BYTE mask = 1 << 7;
-
-		for (i = 0; i < 6 ; i++)
+		for (i = 0; i < 6 ; i++) 
 		{
 			if (ind_bit == 8)
 			{
 				ind_byte++;
 				ind_bit = 0;
 				bit_mask = 1 << 7;
-				setBit(res, bin_CP, mask, ind_byte, bit_mask, &ind_bit);
 			}
-			else
-			{
-				setBit(res, bin_CP, mask, ind_byte, bit_mask, &ind_bit);
-			}
+			setBit(&res[ind_byte], bit_mask, bin_CP, mask);
+			ind_bit++;
 			bit_mask = bit_mask >> 1;
 			mask = mask >> 1;
 		}
@@ -57,13 +50,12 @@ void fillArrFromList(chessPosList* pos_list, BYTE* res)
 	}
 }
 
-void setBit(BYTE* res, BYTE bin_CP, BYTE mask, int ind_byte, BYTE bit_mask, int* ind_bit)
+void setBit(BYTE* dest, BYTE dest_mask, BYTE src, BYTE mask_src)
 {
-	if (bin_CP & mask)
+	if (src & mask_src)
 	{
-		res[ind_byte] = res[ind_byte] | bit_mask;
+		*(dest) = *(dest) | dest_mask;
 	}
-	(*ind_bit)++;
 }
 
 BYTE makeBin(chessPos CP)
@@ -185,28 +177,18 @@ void makeListFromArr(chessPosList* lst, BYTE* arr, unsigned short listSize, int 
 	{
 		CP = 0;
 		mask_CP = 1 << 7;
-		for (j = 0; j < 6; j++)
+		for (j = 0; j < 6; j++) /*get 6 bits that represent row and col*/
 		{
-			if (ind_bit == 8)
+			if (ind_bit == 8) /*if end of byte, go to next byte*/
 			{
-				ind_bit = 0;
+				ind_bit = 0; /*point at most significent bit*/
 				ind_byte++;
-				bit_mask = 1 << 7;
-				if (bit_mask & arr[ind_byte])
-				{
-					CP = CP | mask_CP;
-				}
+				bit_mask = 1 << 7; /*new mask for current byte*/
 			}
-			else
-			{
-				if (bit_mask & arr[ind_byte])
-				{
-					CP = CP | mask_CP;
-				}
-			}				
-			ind_bit++;
-			bit_mask = bit_mask >> 1;
-			mask_CP = mask_CP >> 1;
+			setBit(&CP, mask_CP, arr[ind_byte], bit_mask);
+			ind_bit++; /*next bit in byte*/
+			bit_mask = bit_mask >> 1; /*mask for next bit in byte*/
+			mask_CP = mask_CP >> 1; 
 		}
 		insertBinDataToList(CP, lst);
 	}
@@ -214,8 +196,8 @@ void makeListFromArr(chessPosList* lst, BYTE* arr, unsigned short listSize, int 
 
 void insertBinDataToList(BYTE CP, chessPosList* lst)
 {
-	int let = extractbit(CP, 1 << 5) ;
-	int dig = extractbit(CP, 1 << 2) ;
+	int let = extractbit(CP, LET_MASK);
+	int dig = extractbit(CP, DIG_MASK);
 	insertDatatoEndList(lst, let, dig);
 }
 

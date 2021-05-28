@@ -6,7 +6,7 @@ pathTree findAllPossibleKnightPaths(chessPos* startingPosition)
 	chessPosArray*** movesMat = validKnightMoves();
 	pathTree treePath;
 	treePath.root = findPathsRec(*startingPosition, *movesMat, visitedTable);
-
+	freeChessPosArray(movesMat);
 	return treePath;
 }
 
@@ -108,15 +108,18 @@ void freePathTree(pathTree root)
 
 void freePathTreeRec(treeNode* root)
 {
-	if (root->next_possible_position == NULL)
+	if (root != NULL)
 	{
-		free(root);
-		return;
-	}
-	else
-	{
-		freetreeNodeList(root->next_possible_position);
-		free(root);
+		if (root->next_possible_position == NULL)
+		{
+			free(root);
+			return;
+		}
+		else
+		{
+			freetreeNodeList(root->next_possible_position);
+			free(root);
+		}
 	}
 }
 
@@ -130,5 +133,4 @@ void freetreeNodeList(treeNodeListCell* head)
 		free(curr);
 		curr = next;
 	}
-
 }

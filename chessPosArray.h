@@ -26,7 +26,7 @@ void printChessPos(chessPos pos);
 void printChessPosArray(chessPosArray* square);
 /*the function prints an array of chess positions*/
 
-void freeChessPosArray(chessPosArray*** pBard);
+void freeChessPosArray(chessPosArray*** pBoard);
 /*free chessPos array*/
 
 #endif

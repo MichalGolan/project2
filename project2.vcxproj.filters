@@ -24,9 +24,6 @@
     <ClCompile Include="global.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="projectMainFunctions.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="mainChessTest.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -48,9 +45,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="global.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="projectMainFunctions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ChessPossTree.h">

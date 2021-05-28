@@ -167,7 +167,7 @@ int isEqual(chessPos pos1, chessPos pos2)
 	return res;
 }
 
-void testDisplay()
+void testDisplay() /**/
 {
 	chessPosList lst = createNewList();
 	display(&lst);
