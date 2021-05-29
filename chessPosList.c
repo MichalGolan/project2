@@ -74,28 +74,6 @@ void makeEmptyList(chessPosList* lst)
 	lst->head = lst->tail = NULL;
 }
 
-chessPosList createNewList()
-{
-	chessPosList lst;
-	makeEmptyList(&lst);
-
-	chessPos data1 = { 'C','5' };
-	chessPos data2 = { 'A','4' };
-	chessPos data3 = { 'B','2' };
-	chessPos data4 = { 'D','1' };
-	chessPos data5 = { 'E','3' };
-
-
-	insertCellToEndList(&lst, createNewCell(data1, NULL));
-	insertCellToEndList(&lst, createNewCell(data2, NULL));
-	insertCellToEndList(&lst, createNewCell(data3, NULL));
-	insertCellToEndList(&lst, createNewCell(data4, NULL));
-	insertCellToEndList(&lst, createNewCell(data5, NULL));
-
-	return lst;
-	printf("end");
-}
-
 void fillByList(int board[][SIZE], chessPosList* lst)
 {
 	int i = 1;
@@ -156,7 +134,6 @@ void printBoardFromList(chessPosList* lst)
 	printf("\n");
 }
 
-/*check if two chessPos are equals*/
 int isEqual(chessPos pos1, chessPos pos2)
 {
 	int res = FALSE;
@@ -165,12 +142,6 @@ int isEqual(chessPos pos1, chessPos pos2)
 		res = TRUE;
 	}
 	return res;
-}
-
-void testDisplay() /**/
-{
-	chessPosList lst = createNewList();
-	display(&lst);
 }
 
 void insertDataToList(chessPosList* lst, chessPos pos)
@@ -216,26 +187,4 @@ unsigned short getListSize(chessPosList* pos_list)
 		len++;
 	}
 	return len;
-}
-
-
-void printlist(chessPosList* lst) /**/
-{
-	int i = 1;
-	chessPosCell* curr = lst->head;
-	if (curr == NULL)
-	{
-		printf("empty List, no full board path");
-	}
-	else
-	{
-		while (curr != NULL)
-		{
-			printf("move %d: ", i);
-			printChessPos(curr->position);
-			curr = curr->next;
-			i++;
-		}
-	}
-
 }

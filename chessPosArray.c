@@ -41,20 +41,6 @@ void freeChessPosArray(chessPosArray*** pBoard)
 	free(pBoard);
 }
 
-void printChessPos(chessPos pos)
-{
-	printf("array: LET %c, DIG %c\n", pos[LET], pos[DIG]);
-}
-
-void printChessPosArray(chessPosArray* square)
-{
-	unsigned int i;
-	for (i = 0; i < (square->size); i++)
-	{
-		printChessPos(*(square->positions + i));
-	}
-}
-
 /* this function get locatin in board [i][j] and: count how many moves knight can do and where + fill chessPosArray with relevent locations*/
 void fillchessPosArray(chessPosArray* square, int i, int j)
 {

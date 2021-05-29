@@ -5,7 +5,6 @@ void menu()
 	int choice = 0, searchPath = 0;
 	chessPos location = { SIZE, SIZE };
 	pathTree path_tree;
-	//chessPosList lst;
 	chessPosList* lst = NULL;
 
 	path_tree.root = NULL;
@@ -33,12 +32,7 @@ void menu()
 			}
 			case 4:
 			{
-				if (!searchPath)
-				{
-					lst = optionThree(location, &path_tree, &searchPath);
-				}
-				optionFour(location, lst);
-
+				optionFour(location, lst, &path_tree, &searchPath);
 				break;
 			}
 			case 5:
@@ -58,7 +52,7 @@ void menu()
 			}
 		}
 	}
-	restart(&searchPath, &lst, &path_tree);
+	restart(&searchPath, lst, &path_tree);
 }
 
 void printMenu()
@@ -97,23 +91,21 @@ void printError(int error_index)
 {
 	switch (error_index)
 	{
-	case invalid_choice:
-	{
-		printf("Invalid choice, please enter a number between 1-6.\n");
-		break;
-	}
-	case invalid_Input:
-	{
-		printf("Invalid location.\n");
-		break;
-	}
-	case no_location_given:
-	{
-		printf("No location given.\n");
-		break;
-	}
-	default:
-		break;
+		case invalid_choice:
+		{
+			printf("Invalid choice, please enter a number between 1-6.\n");
+			break;
+		}
+		case invalid_Input:
+		{
+			printf("Invalid location.\n");
+			break;
+		}
+		case no_location_given:
+		{
+			printf("No location given.\n");
+			break;
+		}
 	}
 }
 
@@ -147,28 +139,29 @@ chessPosList* optionThree(chessPos location, pathTree* path_tree, int* searchPat
 		{
 			printf("There is no full board path from given location.\n");
 		}
+		*searchPath = 1;
 	}
-	*searchPath = 1;
 	return tmpList;
 }
 
-void optionFour(chessPos location, chessPosList* lst)
+void optionFour(chessPos location, chessPosList* lst, pathTree* path_tree, int* searchPath)
 {
-	if (location[LET] == SIZE)
+	if (!(*searchPath))
 	{
-		printError(no_location_given);
+		lst = optionThree(location, path_tree, searchPath);
 	}
-	else
+	else if (lst->head == NULL)
+	{
+		printf("There is no full board path from given location.\n");
+		return;
+	}
+	if (location[LET] != SIZE)
 	{
 		if (lst->head != NULL)
 		{
 			char* file_name = getFileName();
 			saveListToBinFile(file_name, lst);
 			free(file_name);
-		}
-		else
-		{
-			printf("There is no full board path from given location.\n");
 		}
 	}
 }

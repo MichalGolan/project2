@@ -9,7 +9,6 @@
 #define invalid_Input 2
 #define no_location_given 3
 
-
 void menu();
 /* main switch for all the options in the menu */
 
@@ -25,11 +24,10 @@ void printError(int error_index);
 void optionTwo(chessPos location, pathTree* path_tree);
 /*build a tree of all possible path from given location. if no location given, inform the user*/
 
-
 chessPosList* optionThree(chessPos location, pathTree* path_tree, int* searchPath);
 /*find a knight path that covers all the board from location. if no location given, inform the user*/
 
-void optionFour(chessPos location, chessPosList* lst);
+void optionFour(chessPos location, chessPosList* lst, pathTree* path_tree, int* searchPath);
 /*get file name from user, print to a binary file a list if the list covers the entire board. otherwise, inform the user */
 
 char* getFileName();

@@ -34,9 +34,6 @@ void insertCellToEndList(chessPosList* lst, chessPosCell* newCell);
 void makeEmptyList(chessPosList* lst);
 /*function creates an empty chessPosList*/
 
-chessPosList createNewList();
-/*this is a debugging function - creates a new list with data*/
-
 int isEqual(chessPos pos1, chessPos pos2);
 /*this function checks and returns
 TRUE - the two chess positions are equal
@@ -48,9 +45,6 @@ void printBoardFromList(chessPosList* lst);
 void fillByList(int board[][SIZE], chessPosList* lst);
 /*this function receives a two dimensional array the size of a chess board,
 and fills it according to the list*/
-
-void testDisplay(); /* check */
-/*this is a debugging function to check that display is working correctly*/
 
 void insertDataToList(chessPosList* lst, chessPos pos);
 /* this function create and insert new node to list*/
@@ -64,8 +58,4 @@ unsigned short getListSize(chessPosList* pos_list);
 void freeList(chessPosList* lst);
 /*free list*/
 
-
-void printlist(chessPosList* lst);
-/*    !!!!!debugging!!!!
-	peint list */
 #endif
