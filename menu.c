@@ -177,7 +177,7 @@ char* getFileName()
 	char c = getchar();
 	while (c != '\n')
 	{
-		if (logSize == phySize)
+		if (logSize == phySize - 1)
 		{
 			phySize *= 2;
 			file_name = (char*)realloc(file_name, phySize * sizeof(char));
@@ -211,22 +211,22 @@ void printCase(int fileRet)
 	{
 		case -1:
 		{
-			printf("File does not exist.\n\n");
+			printf("\nFile does not exist.\n\n");
 			break;
 		}
 		case 1:
 		{
-			printf("The list contains an illegitimate knight path.\n\n");
+			printf("\nThe list contains an illegitimate knight path.\n\n");
 			break;
 		}
 		case 2:
 		{
-			printf("The knight path in the list covers the entire board.\n\n");
+			printf("\nThe knight path in the list covers the entire board.\n\n");
 			break;
 		}
 		case 3:
 		{
-			printf("The knight path in the list doesn't cover all board's locations.\n\n");
+			printf("\nThe knight path in the list doesn't cover all board's locations.\n\n");
 			break;
 		}
 	}
